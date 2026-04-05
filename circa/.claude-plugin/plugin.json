@@ -1,0 +1,11 @@
+{
+  "name": "circa",
+  "version": "0.3.0",
+  "description": "Continuous loop agent orchestrator — driven by human directives in feature.md and critic-generated proposals in candidate.md. Runs indefinitely via ralph-loop Stop hook. High-confidence proposals are auto-executed; low-confidence ones queue for human approval.",
+  "author": {
+    "name": "circa contributors"
+  },
+  "repository": "https://github.com/yourname/circa",
+  "license": "MIT",
+  "keywords": ["agents", "automation", "continuous-loop", "orchestrator", "ralph-loop", "critic"]
+}

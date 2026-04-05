@@ -1,0 +1,22 @@
+[circa]
+version = "0.2.0"
+
+[loop]
+# full-auto: agents never ask for approval
+# auto-edit: agents ask before shell commands, not file edits
+# suggest: agents always ask (use for sensitive codebases)
+approval_mode = "full-auto"
+max_retries = 3
+# How many tasks to run in parallel (1 = sequential, safe default)
+parallelism = 1
+# Confidence threshold for auto-queuing critic proposals (0-100)
+# Proposals below this value require human approval in /circa --mode review
+confidence_threshold = 80
+
+[agents]
+# Default agent role when not specified in task
+default_role = "impl"
+
+[escalation]
+# Default rule appended to every task that doesn't define its own
+default_rule = "If uncertain, pick the simpler path, log the decision, continue."
