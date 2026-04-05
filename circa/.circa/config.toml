@@ -1,5 +1,5 @@
 [circa]
-version = "0.2.0"
+version = "0.3.0"
 
 [loop]
 # full-auto: agents never ask for approval
@@ -12,6 +12,23 @@ parallelism = 1
 # Confidence threshold for auto-queuing critic proposals (0-100)
 # Proposals below this value require human approval in /circa --mode review
 confidence_threshold = 80
+# Pause and wait for human input after each loop cycle (overrides full-auto for checkpoints)
+human_checkpoint = false
+# Generate compact summary files when context window is near limit
+compact_mode = false
+# Maximum loop cycles before auto-stopping (0 = unlimited)
+max_cycles = 0
+
+[review]
+# Use cross-model critic (requires Codex MCP) for adversarial reviews
+# If false, falls back to self-review via circa-critic
+cross_model_review = true
+# Reviewer model used via Codex MCP (set in ~/.codex/config.toml)
+# Recommended: gpt-5.4. Also available: o3, gpt-5.3-codex
+reviewer_model = "gpt-5.4"
+# How often to use cross-model critic vs self-critic (every N critic cycles)
+# 1 = always cross-model, 2 = every other cycle, etc.
+cross_model_frequency = 1
 
 [agents]
 # Default agent role when not specified in task
@@ -20,3 +37,19 @@ default_role = "impl"
 [escalation]
 # Default rule appended to every task that doesn't define its own
 default_rule = "If uncertain, pick the simpler path, log the decision, continue."
+
+[notifications]
+# Webhook URL to call on task completion, failure, or flag creation
+# Leave empty to disable. Supports Slack, Discord, Feishu, custom HTTP endpoints.
+webhook_url = ""
+# Events to notify: task_complete, task_fail, flag_created, loop_stop
+webhook_events = ["task_fail", "flag_created", "loop_stop"]
+# Include task output summary in webhook payload
+include_summary = true
+
+[meta]
+# Enable passive event logging for meta-optimization
+# Events logged to .circa/meta/events.jsonl
+meta_logging = true
+# After N loop cycles, remind the human to run /circa --mode meta-optimize
+meta_optimize_reminder_cycles = 20
